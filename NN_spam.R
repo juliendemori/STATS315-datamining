@@ -2,8 +2,8 @@
 library(nnet)
 
 #Reading in the data into a frame (all numerical variables)
-spam_train <- read.table('/Users/juliendemori/Documents/Academics/STATS_315B/Spam_Train.txt', sep = ',')
-spam_test <- read.table('/Users/juliendemori/Documents/Academics/STATS_315B/Spam.Test.txt', sep = ',')
+spam_train <- read.table('Spam_Train.txt', sep = ',')
+spam_test <- read.table('Spam.Test.txt', sep = ',')
 
 
 xtrain = spam_train[,1:57]

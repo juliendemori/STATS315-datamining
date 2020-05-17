@@ -1,5 +1,5 @@
 #Occupation problem, importing data
-occupation = read.table('/Users/juliendemori/Documents/Academics/STATS_315B/Occupation_Data.txt', sep = ',')
+occupation = read.table('Occupation_Data.txt', sep = ',')
 names(occupation) <- c("occupation", "hometype", "sex", "maritalstat", "age", "education", "annincome", "bayarea", "dualincome", "housemembers", "childrenhouse", "householder", "ethnicity", "language")
 occ = occupation[,1]
 x = occupation[,2:14]
