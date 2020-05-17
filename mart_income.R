@@ -1,5 +1,5 @@
 #Importing data for Income problem
-income = read.table('/Users/juliendemori/Documents/Academics/STATS_315B/Income_Data.txt', sep=',')
+income = read.table('Income_Data.txt', sep=',')
 names(income) <- c("annual_income", "sex", "marital_status", "age", "education", "occupation", "bay_area", "dual_income", "house_size", "children", "householder", "house_type", "ethnicity", "language")
 
 #Declaring types of each variable

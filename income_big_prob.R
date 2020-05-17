@@ -26,8 +26,8 @@ test_sample <- my_big_income[sampled_ints[6296:nrow(my_big_income)], ]
 train_tree <- rpart(formula = annual_income ~ ., data = train_sample, control = rpart.control(cp = 0.001), method = 'anova')
 
 #Plotting the resulting training tree
-# plot(train_tree, uniform=TRUE, main="Income Predicting Tree")
-# text(train_tree, use.n=TRUE, all=TRUE, cex=.3)
+plot(train_tree, uniform=TRUE, main="Income Predicting Tree")
+text(train_tree, use.n=TRUE, all=TRUE, cex=.3)
 
 #Predicting for test data set on various trees
 #Extract complexity parameters from cptable

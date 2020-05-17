@@ -1,11 +1,11 @@
 #Spam classification problem, loading data to be trained on
-spam = read.table('/Users/juliendemori/Documents/Academics/STATS_315B/Spam_Train.txt', sep = ',')
+spam = read.table('Spam_Train.txt', sep = ',')
 spamOnot = spam[,58]
 x = spam[,1:57]
 x = as.matrix(x)
 lx = rep(1,57)
 #Reading in test data
-test = read.table('/Users/juliendemori/Documents/Academics/STATS_315B/Spam_Test.txt', sep = ',')
+test = read.table('Spam_Test.txt', sep = ',')
 xtest = test[,1:57]
 xtest = as.matrix(xtest)
 ytest = test[,58]

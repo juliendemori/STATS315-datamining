@@ -36,52 +36,52 @@ N = length(ytest)
 
 
 # #//////////////////////////////////////////////////////////////////
-# #Part (A)
-# #Now we run the neural network 10 times for each of 1 through 10 hidden weights and average the misclassification error
-# #for each number of hidden weights, to determine the optimal number 
-# av_err = vector(length = 10)
-# for (i in 1:10) {
-	# errors = vector(length = 10)
-	# for (j in 1:10) {
-		# neural <- nnet(ytrain ~ ., train, size = i, rang = 0.5, maxit = 1000)	
-		# ypred <- predict(neural, xtest, type = "raw")
-		# ypred <- (ypred > 0.5)
-		# errors[j] = sum(ytest != (ypred + 0))/N; 
-	# }
-	# av_err[i] = mean(errors)
-# }
+#Part (A)
+#Now we run the neural network 10 times for each of 1 through 10 hidden weights and average the misclassification error
+#for each number of hidden weights, to determine the optimal number 
+av_err = vector(length = 10)
+for (i in 1:10) {
+	errors = vector(length = 10)
+	for (j in 1:10) {
+		neural <- nnet(ytrain ~ ., train, size = i, rang = 0.5, maxit = 1000)	
+		ypred <- predict(neural, xtest, type = "raw")
+		ypred <- (ypred > 0.5)
+		errors[j] = sum(ytest != (ypred + 0))/N; 
+	}
+	av_err[i] = mean(errors)
+}
 
 
-# #Plotting the error
-# plot(1:10, av_err, main = "Average error vs number of hidden units", ylab = "Average test error", xlab = "Hidden units")
-# lines(av_err)
+#Plotting the error
+plot(1:10, av_err, main = "Average error vs number of hidden units", ylab = "Average test error", xlab = "Hidden units")
+lines(av_err)
 
 
 
 # #/////////////////////////////////////////////////////////////////////
-# #Part (B)
-# #In this part we are computing the optimal decay parameter for the neural network
-# b_av_err = vector(length = 11)
-# for (i in 1:11) {
-	# b_errors = vector(length = 10)
-	# for (j in 1:10) {
-		# neural <- nnet(formula = ytrain ~ ., data = train, size = 4, rang = 0.5, decay = (i-1)/10, maxit = 1000)	
-		# ypred <- predict(neural, xtest, type = "raw")
-		# ypred <- (ypred > 0.5)
-		# b_errors[j] = sum(ytest != (ypred + 0))/N; 
-	# }
-	# b_av_err[i] = mean(b_errors)
-# }
+#Part (B)
+#In this part we are computing the optimal decay parameter for the neural network
+b_av_err = vector(length = 11)
+for (i in 1:11) {
+	b_errors = vector(length = 10)
+	for (j in 1:10) {
+		neural <- nnet(formula = ytrain ~ ., data = train, size = 4, rang = 0.5, decay = (i-1)/10, maxit = 1000)	
+		ypred <- predict(neural, xtest, type = "raw")
+		ypred <- (ypred > 0.5)
+		b_errors[j] = sum(ytest != (ypred + 0))/N; 
+	}
+	b_av_err[i] = mean(b_errors)
+}
 
 
-# #Plotting the error
-# rang = range(b_av_err)
-# plot(b_av_err, type = 'o', ylim = rang, axes = FALSE, ann = FALSE)
-# title(main = "Average error vs weight parameter", font.main = 4)
-# axis(1, at = 1:11, lab = c(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1))
-# axis(2, lab = TRUE)
-# title(xlab = "Decay parameter")
-# title(ylab = "Average Error for 10 runs with this weight parameter")
+#Plotting the error
+rang = range(b_av_err)
+plot(b_av_err, type = 'o', ylim = rang, axes = FALSE, ann = FALSE)
+title(main = "Average error vs weight parameter", font.main = 4)
+axis(1, at = 1:11, lab = c(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1))
+axis(2, lab = TRUE)
+title(xlab = "Decay parameter")
+title(ylab = "Average Error for 10 runs with this weight parameter")
 
 #/////////////////////////////////////////////////////////////////////
 #Part (C)
@@ -112,39 +112,39 @@ for (i in 1:L) {
 }
 
 
-# #BONUS
-# #Here I want to run 10 neural networks for 10 iterations each with different starting weights, and then use those weights as the new starting weights for the next 10 neural networks, until there has been no new minimum testing error for 50 iterations
+#BONUS
+#Here I want to run 10 neural networks for 10 iterations each with different starting weights, and then use those weights as the new starting weights for the next 10 neural networks, until there has been no new minimum testing error for 50 iterations
 
-# #number of weights
-# nw = 178
+#number of weights
+nw = 178
 
-# #matrix to store weights
-# W <- matrix(0,nw,10)
-# for (i in 1:10) {
-	# W[,i] <- runif(nw, -0.5, 0.5)
-# }
+#matrix to store weights
+W <- matrix(0,nw,10)
+for (i in 1:10) {
+	W[,i] <- runif(nw, -0.5, 0.5)
+}
 
-# total_error <- c()
-# while(TRUE) {
-	# errors = vector(length = 10)
-	# for (j in 1:10) {
-		# neural <- nnet(ytrain ~ ., data = train, size = 3, Wts = W[,j], maxit = 10)
-		# ypred <- predict(neural, xtest, type = "raw")
-		# ypred <- (ypred > 0.5)
-		# errors[j] <- sum(ytest != (ypred + 0))/N
-		# W[,j] <- neural$wts
-	# }
-	# new_err <- mean(errors)
-	# total_error <- c(total_error, new_err)
-	# if (length(total_error) > 5) {
-		# if (min(total_error) != min(tail(total_error, 5))) {
-			# break
-		# }
-	# }
-# }
+total_error <- c()
+while(TRUE) {
+	errors = vector(length = 10)
+	for (j in 1:10) {
+		neural <- nnet(ytrain ~ ., data = train, size = 3, Wts = W[,j], maxit = 10)
+		ypred <- predict(neural, xtest, type = "raw")
+		ypred <- (ypred > 0.5)
+		errors[j] <- sum(ytest != (ypred + 0))/N
+		W[,j] <- neural$wts
+	}
+	new_err <- mean(errors)
+	total_error <- c(total_error, new_err)
+	if (length(total_error) > 5) {
+		if (min(total_error) != min(tail(total_error, 5))) {
+			break
+		}
+	}
+}
 
-# #Plotting the errors
-# niter <- seq(10, 10*length(total_error), 10)
-# plot(niter, total_error, main = "Average test error vs number of iterations", xlab = "Average test error", ylab = "Number of iterations")
-# lines(niter, total_error)
+#Plotting the errors
+niter <- seq(10, 10*length(total_error), 10)
+plot(niter, total_error, main = "Average test error vs number of iterations", xlab = "Average test error", ylab = "Number of iterations")
+lines(niter, total_error)
 

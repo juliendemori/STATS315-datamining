@@ -1,7 +1,7 @@
 library(rpart)
 
 #Reading in the data
-income_data <- read.table('/Users/juliendemori/Documents/Academics/STATS_315B/Income_Data.txt', sep= ",", col.names = c("annual_income", "sex", "marital_status", "age", "education", "occupation", "bay_area", "dual_income", "house_size", "children", "householder", "house_type", "ethnicity", "language"))
+income_data <- read.table('Income_Data.txt', sep= ",", col.names = c("annual_income", "sex", "marital_status", "age", "education", "occupation", "bay_area", "dual_income", "house_size", "children", "householder", "house_type", "ethnicity", "language"))
 
 #Telling which parameters are categorical, numerical, etc
 attach(income_data)

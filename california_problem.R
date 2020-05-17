@@ -1,5 +1,5 @@
 #Reading in the data
-california = read.table('/Users/juliendemori/Documents/Academics/STATS_315B/California_Data.txt', sep=',')
+california = read.table('California_Data.txt', sep=',')
 names(california) <- c('medval', 'medinc', 'houseage', 'averoom', 'avebedroom', 'popul', 'aveoccup', 'latitude', 'longitude')
 medValue = california[,1]
 x = california[,2:9]
